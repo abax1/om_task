@@ -18,3 +18,6 @@ The grid is continuous both vertically and horizontally (e.g. passing the eastwa
 Explain how the solution provided would work efficiently also for larger grids. Better if examples are provided.
 ## Solution
 ### Firstly, let's visualise the problem
+
+### Assumptions
+1. Edges are bi-directional
