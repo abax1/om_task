@@ -16,6 +16,8 @@ class IOTestCase(unittest.TestCase):
         self.assertEqual(graph_data[0][0][1], 'A9')
         self.assertEqual(graph_data[0][0][2], 0.686)
 
+        print(graph_data[0])
+
     def test_process_input_file2(self):
         """
         Checks that the input file 2 is converted into an object that has the timestep as a key
