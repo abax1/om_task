@@ -9,11 +9,6 @@ class GraphTestCase(unittest.TestCase):
         graph = Graph()
         self.assertIsNotNone(graph, "Graph cannot be None.")
 
-    def test_graph_init_no_input_file(self):
-        # self.assertRaises(ValueError, Graph)
-        # TODO
-        pass
-
     def test_graph_add_edges(self):
         input_file = "/home/andy/code/python/om_task/data/input_data1.txt"
         graph_data = process_input_file(input_file)
@@ -30,8 +25,7 @@ class GraphTestCase(unittest.TestCase):
         # print("Check weights...")
         # print(graph_data.keys())
         # print(graphs.keys())
-        self.assertEqual(graphs.get(0).weights[('A0', 'A9')], 0.686)
-
+        self.assertEqual(0.686, graphs.get(0).weights[('A0', 'A9')])
 
 
 if __name__ == '__main__':

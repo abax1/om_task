@@ -4,7 +4,9 @@ from src.utils.logger import logger
 
 
 def calculate_distance(point_a: (str, int), point_b: (str, int)) -> float:
-    """Take a value e.g. x=A0 y=J5 and calculate the distance between the two points in nautical miles."""
+    """
+    Take a value e.g. x=A0 y=J5 and calculate the distance between the two points in nautical miles.
+    """
 
     # Validate the input
     if point_a is None or point_b is None:
