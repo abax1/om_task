@@ -1,6 +1,7 @@
 import unittest
 from datetime import time, datetime, timedelta
 from src.utils.distance import calculate_distance
+from src.utils.retro_data_structure import GeneralFullyRetroactive
 from src.utils.timestep import get_timestep, convert_float_to_time
 
 
@@ -87,6 +88,9 @@ class UtilsTestCase(unittest.TestCase):
         t = convert_float_to_time(0.5)
         print("t = ", t)
         self.assertEqual(time(0, 30), t)
+
+    def test_retro_data(self):
+        q = GeneralFullyRetroactive([('A0', 'A1', 0.5), ('A0', 'B0', 1.0)])
 
 
 if __name__ == '__main__':

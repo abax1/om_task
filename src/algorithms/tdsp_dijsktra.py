@@ -1,5 +1,7 @@
+import heapq
 from src.utils.timestep import get_timestep, convert_float_to_time
 from datetime import time, datetime, timedelta
+
 
 def dijsktra(graph, initial, end):
     """
@@ -22,6 +24,10 @@ def dijsktra(graph, initial, end):
 
         for next_node in destinations:
             weight = graph.weights[(current_node, next_node)] + weight_to_current_node
+            print("next_node = ", next_node)
+            print("graph.weights[(current_node, next_node)] = ", graph.weights[(current_node, next_node)])
+            print("weight_to_current_node = ", weight_to_current_node)
+            print("weight = ", weight)
             if next_node not in shortest_paths:
                 shortest_paths[next_node] = (current_node, weight)
             else:
@@ -30,11 +36,13 @@ def dijsktra(graph, initial, end):
                     shortest_paths[next_node] = (current_node, weight)
 
         next_destinations = {node: shortest_paths[node] for node in shortest_paths if node not in visited}
+        print("next_destinations = ", next_destinations)
 
         if not next_destinations:
             return "Route not possible"
 
         current_node = min(next_destinations, key=lambda k: next_destinations[k][1])
+        print("current_node = ", current_node)
 
     path = []
     while current_node is not None:
@@ -48,6 +56,89 @@ def dijsktra(graph, initial, end):
 
 
 def tdsp_dijsktra(graphs, start_time, initial, end):
+    """
+    A time-dependent version of Dijsktra's shortest path algorithm.
+
+    :param graphs: The graph containing the nodes and edges
+    :param start_time: The planned start time
+    :param initial: The start node
+    :param end: The destination node
+    :return: An ordered list of nodes that gives the shortest calculated path
+    """
+    shortest_paths = {initial: (None, 0)}
+    current_node = initial
+    visited = set()
+
+    ts = get_timestep(time(start_time.hour, start_time.minute))
+    current_time = start_time
+
+    while current_node != end:
+        visited.add(current_node)
+        destinations = graphs[ts].edges[current_node]
+        weight_to_current_node = shortest_paths[current_node][1]
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        print("weight_to_current_node = ", weight_to_current_node)
+        if weight_to_current_node > 0:
+            # update the time.
+            ct = convert_float_to_time(weight_to_current_node)
+            print("ct = ", ct)
+            current_time += timedelta(hours=ct.hour, minutes=ct.minute)
+            ts = get_timestep(time(current_time.hour, current_time.minute))
+            print("ts = ", ts)
+
+        print("shortest_paths = ", shortest_paths)
+        print("destinations = ", destinations)
+
+        for next_node in destinations:
+            print("current_node = ", current_node)
+            print("next_node = ", next_node)
+            print("ts = ", ts)
+            weight = graphs[ts].weights[(current_node, next_node)] + weight_to_current_node
+            print("graphs[{}].weights[({}, {})] = {}".format(ts, current_node, next_node, graphs[ts].weights[(current_node, next_node)]))
+            print("weight_to_current_node = ", weight_to_current_node)
+            print("weight = ", weight)
+            if next_node not in shortest_paths:
+                print("next_node {} not in shortest paths".format(next_node))
+                shortest_paths[next_node] = (current_node, weight)
+            else:
+                current_shortest_weight = shortest_paths[next_node][1]
+                if current_shortest_weight > weight:
+                    shortest_paths[next_node] = (current_node, weight)
+
+            print("shortest_paths = ", shortest_paths)
+
+            print("====================================")
+            # update the time.
+            # ct = convert_float_to_time(shortest_paths[next_node][1])
+            # print("ct = ", ct)
+            # current_time += timedelta(hours=ct.hour, minutes=ct.minute)
+            # ts = get_timestep(time(current_time.hour, current_time.minute))
+            # print("ts = ", ts)
+
+        next_destinations = {node: shortest_paths[node] for node in shortest_paths if node not in visited}
+        print("next_destinations = ", next_destinations)
+
+        if not next_destinations:
+            return "Route not possible"
+
+        current_node = min(next_destinations, key=lambda k: next_destinations[k][1])
+        print("selected node for shortest path = {}".format(current_node))
+
+    print("Finally...")
+    print("shortest_paths = {}".format(shortest_paths))
+
+    path = []
+    while current_node is not None:
+        path.append(current_node)
+        next_node = shortest_paths[current_node][0]
+        current_node = next_node
+
+    # Reverse the path
+    path = path[::-1]
+    return path
+
+
+def tdsp_dijsktra_v2(graphs, start_time, initial, end):
     """
     A time-dependent version of Dijsktra's shortest path algorithm.
 
