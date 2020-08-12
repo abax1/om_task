@@ -53,6 +53,10 @@ class UtilsTestCase(unittest.TestCase):
         ts = get_timestep(t=my_time)
         self.assertEqual(9, ts)
 
+        my_time = time(23, 59)
+        ts = get_timestep(t=my_time)
+        self.assertEqual(9, ts)
+
     def test_timeline(self):
         today = datetime.today()
         t = time(1, 0)  # input time value
@@ -88,9 +92,6 @@ class UtilsTestCase(unittest.TestCase):
         t = convert_float_to_time(0.5)
         print("t = ", t)
         self.assertEqual(time(0, 30), t)
-
-    def test_retro_data(self):
-        q = GeneralFullyRetroactive([('A0', 'A1', 0.5), ('A0', 'B0', 1.0)])
 
 
 if __name__ == '__main__':

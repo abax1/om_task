@@ -1,4 +1,6 @@
 venv/
+tmp/
+tmp_*
 .idea/
 __pycache__
 .pyc
