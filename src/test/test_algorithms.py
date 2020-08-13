@@ -206,7 +206,7 @@ class AlgoTestCase(unittest.TestCase):
 
         print(path)
 
-        self.assertEqual(['A0', 'B0', 'A1'], path)
+        self.assertEqual(['A0', 'B0', 'B1', 'A1'], path)
 
     def test_tdsp_dijsktra_with_timesteps_4(self):
         """
@@ -237,7 +237,7 @@ class AlgoTestCase(unittest.TestCase):
 
         print(path)
 
-        self.assertEqual(['A0', 'A1'], path)
+        self.assertEqual(['A0', 'B0', 'B1', 'A1'], path)
 
     def test_tdsp_dijsktra_with_timesteps_5(self):
         """
@@ -266,6 +266,41 @@ class AlgoTestCase(unittest.TestCase):
 
         print("Start Test 1")
         path = tdsp_dijsktra(graphs, start_time, 'A0', 'B2')
+        print("Path = ", path)
+        self.assertEqual(['A0', 'B0', 'B1', 'B2'], path)
+
+    def test_tdsp_dijsktra_with_timesteps_key_error(self):
+        """
+        This test case will now test the time dependency aspect where according to the timestep
+        a different weight will apply to an edge.
+        """
+        input_file = "/home/andy/code/python/om_task/data/input_data2.txt"
+        graph_data = process_input_file(input_file)
+
+        graphs = {}
+
+        today = datetime.today()
+        t = time(0, 0)  # input time value
+        start_time = datetime(today.year, today.month, today.day, t.hour, t.minute)
+
+        #print("graph_data = ", graph_data)
+        print("graph_data[4] = ", graph_data[4])
+
+        for timestep in graph_data:
+            # print("Timestep=", timestep)
+            # Create a graph for each timestep
+            graphs[timestep] = Graph()
+            for edge in graph_data.get(timestep):
+                graphs[timestep].add_edge(*edge)
+
+        for graph in graphs:
+            print(graphs[graph].edges)
+            print(graphs[graph].weights)
+
+        print("graph[4].weights = ", graphs[4].weights)
+
+        print("Start Test 1")
+        path = tdsp_dijsktra(graphs, start_time, 'A0', 'E1')
         print("Path = ", path)
         self.assertEqual(['A0', 'B0', 'B1', 'B2'], path)
 

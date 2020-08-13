@@ -23,9 +23,14 @@ Explain how the solution provided would work efficiently also for larger grids. 
 3. _time_ is specified as a decimal e.g. 0.5 = 30 minutes
 4. User input is specified as: **(start_node, end_node, start_time) e.g. A0, J5, 01:00**
 5. Output will be an array of nodes in order of travel: **['A0', 'B2', 'B1']**
+6. If there is no entry in the input data for an edge then assume that it is a cost of 1.0.
 
 ## Analysis
 ### Firstly, let's visualise the problem
+The grid is a evenly spaced set of vertices spaced out at 10 nautical miles.  The grid wraps i.e. distance from A0 to A9 is also 10 nautical miles.
+
+A start and end of a path is specified as a grid location e.g. start = B1, end = E3 and the path between those nodes are specified in the same way e.g. C2, D3 etc.
+
 ![Image of Graph](data/graph.png)
 
 **_Figure 1: Visual Representation of the Graph_**
@@ -85,5 +90,78 @@ Bellow is an example with four graphs.  Notice a different weight value on some 
 ![Image of Multi-Graph](data/multi_graph.png)
 
 **_Figure 3: Multi-Graph Example_**
+
+Each graph represents a timestep e.g. if the start time is 01:30 that will fall into T1 and as the traveller moves along a path, the travel time increases and when reaching a new node, depending on the time travelled, the next node may need to be referenced from a different graph.
+
+## Design
+This problem is a _shortest path problem_, or rather, a _time-dependent shortest path problem_.  To solve such a problem we can use **_Dijkstra's Shortest Path Algorithm_**.  We will modify it to cope with the time-dependent aspect to our graphs.
+
+Figure 4 below outlines the flow that will be implemented.
+
+![Image of Flow Chart](data/flow.png)
+
+## Implementation
+The solution is implemented as a Python microservice that exposes a Restful API which is as follows:
+
+POST | http://localhost:5001/route?start=A0&end=E1&start_time=02:00
+-------|------------
+
+PARAMS | Example Value |
+-------|----
+start | A0
+end | E1
+start_time | 02:00
+
+BODY | formdata |
+-------|----
+file | input_data2.txt
+
+Example Request:
+```python
+import requests
+
+url = "http://localhost:5001/route?start=A0&end=E1&start_time=02:00"
+
+payload = {}
+files = [
+  ('file', open('/home/andy/code/python/om_task/data/input_data2.txt','rb'))
+]
+headers= {}
+
+response = requests.request("POST", url, headers=headers, data = payload, files = files)
+
+print(response.text.encode('utf8'))
+
+```
+
+Example Response:
+Status: 201
+```json
+{
+  "message": "Shortest path successfully calculated.",
+  "start": "A0",
+  "end": "E1",
+  "start_time": "Thu, 13 Aug 2020 02:00:00 GMT",
+  "path": [
+    "A0",
+    "B9",
+    "C0",
+    "D1",
+    "E1"
+  ]
+}
+```
+
+## Notes About Chosen Solution
+After some initial research on shortest path algorithms comparing _Dijkstra_, _A*_, _Bellman-Ford_; the author decided
+upon _Dijkstra_ for the following reasons:
+
+1. Easier to understand (_author is inexperienced in shortest path problems_)
+2. Experts seem to claim that _Dijkstra_ is better for large graphs (see [white paper](https://openproceedings.org/2008/conf/edbt/DingYQ08.pdf))
+3. There are no negative edges in the input data (_Dijkstra_ only supports positive edge values)
+4. _Dijkstra_ can be extended to prioritise other attributes such as direction and distance to improve the optimisation of the algorithm
+
+Very large graphs could be a problem for any _shortest path for weighted edges_ algorithms, however, large graphs could be split into smaller graphs and separately loaded into memory as required.  
+
 
 
