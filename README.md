@@ -103,6 +103,7 @@ Figure 4 below outlines the flow that will be implemented.
 ## Implementation
 The solution is implemented as a Python microservice that exposes a Restful API which is as follows:
 
+#### API
 POST | http://localhost:5001/route?start=A0&end=E1&start_time=02:00
 -------|------------
 
@@ -163,5 +164,21 @@ upon _Dijkstra_ for the following reasons:
 
 Very large graphs could be a problem for any _shortest path for weighted edges_ algorithms, however, large graphs could be split into smaller graphs and separately loaded into memory as required.  
 
+## Installation and Run Instructions
+##### Clone this repo
+`git clone https://github.com/abax1/om_task.git`
 
+##### Create virtual environment
+`python -m venv ./venv`
+
+##### Activate virtual environment
+`source ./venv/bin/activate`
+
+##### Install packages
+`pip install -r requirements.txt`
+
+##### Run the microservice
+`python run.py`
+
+Now you should see a server running on localhost port 5001.  See **API** section to use endpoint.
 
