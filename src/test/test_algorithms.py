@@ -302,7 +302,7 @@ class AlgoTestCase(unittest.TestCase):
         print("Start Test 1")
         path = tdsp_dijsktra(graphs, start_time, 'A0', 'E1')
         print("Path = ", path)
-        self.assertEqual(['A0', 'B0', 'B1', 'B2'], path)
+        self.assertEqual(['A0', 'B9', 'C0', 'D0', 'E1'], path)
 
 
 if __name__ == '__main__':
