@@ -48,10 +48,10 @@ Each node is a vertex on the grid e.g. **A1**.  Each node is connected to the no
 Each edge has a time value which represents the time it will take to travel along that edge.  An edge connects two nodes (vertices) so they can be depicted like the table below.
 
 From Node  | To Node | Weight (time in hours)
------------|----------|-----------------------
-    A0     |    B0    |    0.521  
-    B0     |    A0    |    0.823  
-    A0     |    B1    |    1.223  
+-----------|---------|-----------------------
+A0 |    B0   |    0.521  
+B0 |    A0   |    0.823  
+A0 |    B1   |    1.223  
     
 #### Timesteps
 So far we have been working with a static graph.  That is, a set of vertices and edges that are static.  However, the problem presented is that of a dynamic graph (a graph where the edge weights change depending on the time).
@@ -60,12 +60,12 @@ The input data specifies a timestep that is to be used as a key to determine whi
 
 Start Node | End Node | Timestep | Weight (time)
 -----------|----------|----------|-------------
-    A0     |    B0    |     0    |    0.521  
-    B0     |    A0    |     0    |    0.823  
-    A0     |    B1    |     0    |    1.223  
-    A0     |    B0    |     1    |    0.832  
-    B0     |    A0    |     1    |    0.543  
-    A0     |    B1    |     1    |    1.021  
+A0     |    B0    |     0    |    0.521  
+B0     |    A0    |     0    |    0.823  
+A0     |    B1    |     0    |    1.223  
+A0     |    B0    |     1    |    0.832  
+B0     |    A0    |     1    |    0.543  
+A0     |    B1    |     1    |    1.021  
 
 The timesteps are defined as follows:-
 
