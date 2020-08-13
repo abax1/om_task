@@ -3,7 +3,6 @@ from datetime import time, datetime, timedelta
 from src.utils.logger import logger
 
 
-
 def dijsktra(graph, initial, end):
     """
     Dijsktra's shortest path algorithm.
@@ -110,7 +109,7 @@ def tdsp_dijsktra(graphs, start_time, initial, end):
         logger.debug("next_destinations = {}".format(next_destinations))
 
         if not next_destinations:
-            return "Route not possible"
+            return None
 
         current_node = min(next_destinations, key=lambda k: next_destinations[k][1])
         logger.debug("selected node for shortest path = {}".format(current_node))

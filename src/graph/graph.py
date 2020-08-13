@@ -1,4 +1,3 @@
-from src.utils.logger import logger
 from collections import defaultdict
 
 

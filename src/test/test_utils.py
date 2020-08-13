@@ -1,7 +1,6 @@
 import unittest
 from datetime import time, datetime, timedelta
 from src.utils.distance import calculate_distance
-from src.utils.retro_data_structure import GeneralFullyRetroactive
 from src.utils.timestep import get_timestep, convert_float_to_time
 
 

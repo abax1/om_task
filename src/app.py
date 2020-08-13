@@ -67,12 +67,22 @@ def route():
         for edge in graph_data.get(timestep):
             graphs[timestep].add_edge(*edge)
 
-    path = tdsp_dijsktra(graphs, start_time, start, end)
+    path = tdsp_dijsktra(graphs, start_time, start.upper(), end.upper())
 
-    return jsonify({
-            "message": "Shortest path successfully calculated.",
-            "start": start,
-            "end": end,
-            "start_time": start_time,
-            "path": [node for node in path]
-        }), 201
+    if path:
+        return jsonify({
+                "message": "Shortest path successfully calculated.",
+                "start": start,
+                "end": end,
+                "start_time": start_time,
+                "path": [node for node in path]
+            }), 201
+    else:
+        return jsonify({
+                "message": "Route not possible.",
+                "start": start,
+                "end": end,
+                "start_time": start_time,
+                "path": []
+            }), 201
+
