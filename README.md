@@ -180,5 +180,5 @@ Very large graphs could be a problem for any _shortest path for weighted edges_ 
 ##### Run the microservice
 `python run.py`
 
-Now you should see a server running on localhost port 5001.  See **API** section to use endpoint.
+Now you should see a server running on localhost port 5001.  See [API](https://github.com/abax1/om_task#api) section to use endpoint.
 
