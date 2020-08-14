@@ -1,6 +1,6 @@
 # Python Assessment Task
 ## Problem Definition
-Problem definition
+
 Given a set of edges on a regularly spaced grid find the path requiring the least time to be travelled for any 2 given points.
 
 The edges information are provided as follows:
