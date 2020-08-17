@@ -162,7 +162,9 @@ upon _Dijkstra_ for the following reasons:
 3. There are no negative edges in the input data (_Dijkstra_ only supports positive edge values)
 4. _Dijkstra_ can be extended to prioritise other attributes such as direction and distance to improve the optimisation of the algorithm
 
-Very large graphs could be a problem for any _shortest path for weighted edges_ algorithms, however, large graphs could be split into smaller graphs and separately loaded into memory as required.  
+Very large graphs could be a problem for any _shortest path for weighted edges_ algorithms, however, large graphs could be split into smaller graphs and separately loaded into memory as required.
+
+As the weights are small, the current solution could be optimised to use [Dial's version](https://www.geeksforgeeks.org/dials-algorithm-optimized-dijkstra-for-small-range-weights/).
 
 ## Installation and Run Instructions
 ##### Clone this repo
