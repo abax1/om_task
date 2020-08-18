@@ -31,7 +31,7 @@ The grid is a evenly spaced set of vertices spaced out at 10 nautical miles.  Th
 
 A start and end of a path is specified as a grid location e.g. start = B1, end = E3 and the path between those nodes are specified in the same way e.g. C2, D3 etc.
 
-![Image of Graph](data/graph.png)
+![Image of Graph](graph.png)
 
 **_Figure 1: Visual Representation of the Graph_**
 
@@ -41,7 +41,7 @@ The task is, given a starting node, say _x_, and a destination node (_y_), retur
 
 Each node is a vertex on the grid e.g. **A1**.  Each node is connected to the nodes around it, see Figure 2 for an example.
 
-![Image of Nodes and Edges](data/node_edges.png)
+![Image of Nodes and Edges](node_edges.png)
 
 **_Figure 2: Nodes and Edges Example_**
 
@@ -87,7 +87,7 @@ A separate graph is required to represent the different timesteps.  This will re
 
 Bellow is an example with four graphs.  Notice a different weight value on some of the edges for the different timesteps. 
 
-![Image of Multi-Graph](data/multi_graph.png)
+![Image of Multi-Graph](multi_graph.png)
 
 **_Figure 3: Multi-Graph Example_**
 
@@ -98,7 +98,7 @@ This problem is a _shortest path problem_, or rather, a _time-dependent shortest
 
 Figure 4 below outlines the flow that will be implemented.
 
-![Image of Flow Chart](data/flow.png)
+![Image of Flow Chart](flow.png)
 
 ## Implementation
 The solution is implemented as a Python microservice that exposes a Restful API which is as follows:
