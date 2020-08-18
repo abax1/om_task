@@ -104,8 +104,8 @@ Figure 4 below outlines the flow that will be implemented.
 The solution is implemented as a Python microservice that exposes a Restful API which is as follows:
 
 #### API
-POST | http://localhost:5001/route?start=A0&end=E1&start_time=02:00
--------|------------
+POST | http://localhost:5001/route?start=A0&end=E1&start_time=02:00 |
+-----|------------
 
 PARAMS | Example Value |
 -------|----
